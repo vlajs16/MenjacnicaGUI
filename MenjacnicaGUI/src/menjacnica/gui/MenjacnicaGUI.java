@@ -27,6 +27,11 @@ import java.awt.Color;
 //import javax.swing.border.BevelBorder;
 import javax.swing.border.TitledBorder;
 import javax.swing.UIManager;
+import javax.swing.table.DefaultTableModel;
+import javax.swing.JPopupMenu;
+import java.awt.Component;
+import java.awt.event.MouseAdapter;
+import java.awt.event.MouseEvent;
 
 public class MenjacnicaGUI extends JFrame {
 
@@ -51,6 +56,10 @@ public class MenjacnicaGUI extends JFrame {
 	private JScrollPane scrollPane;
 	private JTable table;
 	private JTextArea textArea;
+	private JPopupMenu popupMenu;
+	private JMenuItem mntmDodajKurs;
+	private JMenuItem mntmObrisiKurs;
+	private JMenuItem mntmIzvrsiZamenu;
 
 	/**
 	 * Launch the application.
@@ -200,6 +209,32 @@ public class MenjacnicaGUI extends JFrame {
 	private JTable getTable() {
 		if (table == null) {
 			table = new JTable();
+			table.setFont(new Font("Tahoma", Font.PLAIN, 18));
+			table.setModel(new DefaultTableModel(
+				new Object[][] {
+					{null, null, null, null, null, null},
+					{null, null, null, null, null, null},
+					{null, null, null, null, null, null},
+					{null, null, null, null, null, null},
+					{null, null, null, null, null, null},
+					{null, null, null, null, null, null},
+					{null, null, null, null, null, null},
+					{null, null, null, null, null, null},
+					{null, null, null, null, null, null},
+					{null, null, null, null, null, null},
+				},
+				new String[] {
+					"\u0160ifra", "Skra\u0107eni naziv", "Prodajni", "Srednji", "Kupovni", "Naziv"
+				}
+			) {
+				Class[] columnTypes = new Class[] {
+					String.class, String.class, Double.class, Double.class, Double.class, String.class
+				};
+				public Class getColumnClass(int columnIndex) {
+					return columnTypes[columnIndex];
+				}
+			});
+			addPopup(table, getPopupMenu());
 		}
 		return table;
 	}
@@ -209,5 +244,49 @@ public class MenjacnicaGUI extends JFrame {
 			textArea.setFont(new Font("Tahoma", Font.PLAIN, 16));
 		}
 		return textArea;
+	}
+	private JPopupMenu getPopupMenu() {
+		if (popupMenu == null) {
+			popupMenu = new JPopupMenu();
+			popupMenu.add(getMntmDodajKurs());
+			popupMenu.add(getMntmObrisiKurs());
+			popupMenu.add(getMntmIzvrsiZamenu());
+		}
+		return popupMenu;
+	}
+	private static void addPopup(Component component, final JPopupMenu popup) {
+		component.addMouseListener(new MouseAdapter() {
+			public void mousePressed(MouseEvent e) {
+				if (e.isPopupTrigger()) {
+					showMenu(e);
+				}
+			}
+			public void mouseReleased(MouseEvent e) {
+				if (e.isPopupTrigger()) {
+					showMenu(e);
+				}
+			}
+			private void showMenu(MouseEvent e) {
+				popup.show(e.getComponent(), e.getX(), e.getY());
+			}
+		});
+	}
+	private JMenuItem getMntmDodajKurs() {
+		if (mntmDodajKurs == null) {
+			mntmDodajKurs = new JMenuItem("Dodaj kurs");
+		}
+		return mntmDodajKurs;
+	}
+	private JMenuItem getMntmObrisiKurs() {
+		if (mntmObrisiKurs == null) {
+			mntmObrisiKurs = new JMenuItem("Obrisi kurs");
+		}
+		return mntmObrisiKurs;
+	}
+	private JMenuItem getMntmIzvrsiZamenu() {
+		if (mntmIzvrsiZamenu == null) {
+			mntmIzvrsiZamenu = new JMenuItem("Izvrsi zamenu");
+		}
+		return mntmIzvrsiZamenu;
 	}
 }
