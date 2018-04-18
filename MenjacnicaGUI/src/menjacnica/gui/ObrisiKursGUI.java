@@ -9,6 +9,15 @@ import javax.swing.JLabel;
 import javax.swing.JPanel;
 import javax.swing.JTextField;
 import javax.swing.border.EmptyBorder;
+import javax.swing.JButton;
+import java.awt.event.ActionListener;
+import java.awt.event.ActionEvent;
+import java.awt.event.WindowAdapter;
+import java.awt.event.WindowEvent;
+import javax.swing.JCheckBox;
+import javax.swing.event.ChangeListener;
+import javax.swing.event.ChangeEvent;
+import java.awt.Toolkit;
 
 public class ObrisiKursGUI extends JFrame {
 
@@ -30,12 +39,24 @@ public class ObrisiKursGUI extends JFrame {
 	private JTextField txtSrednjiKurs;
 	private JLabel lblSkraceniNaziv;
 	private JTextField txtSkraceniNaziv;
+	private JButton btnOdustani;
+	private JButton btnObrisi;
+	private MenjacnicaGUI mg;
+	private JCheckBox chckbxZaistaObrisiKurs;
 
 
 	/**
 	 * Create the frame.
 	 */
-	public ObrisiKursGUI() {
+	public ObrisiKursGUI(MenjacnicaGUI mg) {
+		setIconImage(Toolkit.getDefaultToolkit().getImage(ObrisiKursGUI.class.getResource("/imgs/Money.png")));
+		setResizable(false);
+		addWindowListener(new WindowAdapter() {
+			@Override
+			public void windowClosing(WindowEvent e) {
+				dispose();
+			}
+		});
 		setTitle("Obrisi kurs");
 		setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
 		setBounds(100, 100, 800, 550);
@@ -44,6 +65,8 @@ public class ObrisiKursGUI extends JFrame {
 		contentPane.setLayout(new BorderLayout(0, 0));
 		setContentPane(contentPane);
 		contentPane.add(getPanel(), BorderLayout.CENTER);
+		
+		this.mg = mg;
 	}
 	
 	private JPanel getPanel() {
@@ -62,6 +85,9 @@ public class ObrisiKursGUI extends JFrame {
 			panel.add(getTxtSrednjiKurs());
 			panel.add(getLblSkraceniNaziv());
 			panel.add(getTxtSkraceniNaziv());
+			panel.add(getBtnOdustani());
+			panel.add(getBtnObrisi());
+			panel.add(getChckbxZaistaObrisiKurs());
 		}
 		return panel;
 	}
@@ -168,5 +194,56 @@ public class ObrisiKursGUI extends JFrame {
 			txtSkraceniNaziv.setColumns(10);
 		}
 		return txtSkraceniNaziv;
+	}
+	private JButton getBtnOdustani() {
+		if (btnOdustani == null) {
+			btnOdustani = new JButton("Odustani");
+			btnOdustani.addActionListener(new ActionListener() {
+				public void actionPerformed(ActionEvent e) {
+					dispose();
+				}
+			});
+			btnOdustani.setFont(new Font("Tahoma", Font.PLAIN, 20));
+			btnOdustani.setBounds(461, 409, 270, 32);
+		}
+		return btnOdustani;
+	}
+	private JButton getBtnObrisi() {
+		if (btnObrisi == null) {
+			btnObrisi = new JButton("Obrisi");
+			btnObrisi.addActionListener(new ActionListener() {
+				public void actionPerformed(ActionEvent e) {
+					String text = "Obrisali ste: (Sifra: " + txtSifra.getText()+"; Valuta: " + txtNaziv.getText() + " (" + txtSkraceniNaziv.getText()+ ") " +
+							" Prodajni kurs: " + txtProdajniKurs.getText() +
+							"; Srednji kurs: " + txtSrednjiKurs.getText() +
+							"; Kupovni kurs: " + txtKupovniKurs.getText() + " )";
+		mg.addNewText(text);
+		dispose();
+				}
+			});
+			btnObrisi.setEnabled(false);
+			btnObrisi.setFont(new Font("Tahoma", Font.PLAIN, 20));
+			btnObrisi.setBounds(37, 411, 270, 32);
+		}
+		return btnObrisi;
+	}
+	private JCheckBox getChckbxZaistaObrisiKurs() {
+		if (chckbxZaistaObrisiKurs == null) {
+			chckbxZaistaObrisiKurs = new JCheckBox("Zaista obrisi kurs");
+			chckbxZaistaObrisiKurs.addActionListener(new ActionListener() {
+				public void actionPerformed(ActionEvent e) {
+					if(chckbxZaistaObrisiKurs.isSelected()) {
+//						System.out.println("ccc");
+						btnObrisi.setEnabled(true);
+					}	
+					else btnObrisi.setEnabled(false);
+				}
+			});
+			
+			chckbxZaistaObrisiKurs.setFont(new Font("Tahoma", Font.PLAIN, 20));
+			chckbxZaistaObrisiKurs.setBounds(37, 364, 270, 32);
+			
+		}
+		return chckbxZaistaObrisiKurs;
 	}
 }

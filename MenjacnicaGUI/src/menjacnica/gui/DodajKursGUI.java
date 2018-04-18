@@ -13,6 +13,7 @@ import java.awt.event.ActionListener;
 import java.awt.event.ActionEvent;
 import java.awt.event.WindowAdapter;
 import java.awt.event.WindowEvent;
+import java.awt.Toolkit;
 
 public class DodajKursGUI extends JFrame {
 
@@ -42,6 +43,7 @@ public class DodajKursGUI extends JFrame {
 	 * Create the frame.
 	 */
 	public DodajKursGUI(MenjacnicaGUI mg) {
+		setIconImage(Toolkit.getDefaultToolkit().getImage(DodajKursGUI.class.getResource("/imgs/Money.png")));
 		addWindowListener(new WindowAdapter() {
 			@Override
 			public void windowClosing(WindowEvent e) {
@@ -189,10 +191,10 @@ public class DodajKursGUI extends JFrame {
 			btnDodaj = new JButton("Dodaj");
 			btnDodaj.addActionListener(new ActionListener() {
 				public void actionPerformed(ActionEvent e) {
-					String text = "Sifra: " + txtSifra.getText()+" Valuta: " + txtNaziv.getText() + " (" + txtSkraceniNaziv.getText()+ ") " +
-										" Prodajni kurs: " + txtProdajniKurs.getText() +
-										" Srednji kurs: " + txtSrednjiKurs.getText() +
-										" Kupovni kurs: " + txtKupovniKurs.getText();
+					String text = "Dodali ste: (Sifra: " + txtSifra.getText()+"; Valuta: " + txtNaziv.getText() + " (" + txtSkraceniNaziv.getText()+ ") " +
+										"; Prodajni kurs: " + txtProdajniKurs.getText() +
+										"; Srednji kurs: " + txtSrednjiKurs.getText() +
+										"; Kupovni kurs: " + txtKupovniKurs.getText() + ") ";
 					mg.addNewText(text);
 					dispose();
 				}
