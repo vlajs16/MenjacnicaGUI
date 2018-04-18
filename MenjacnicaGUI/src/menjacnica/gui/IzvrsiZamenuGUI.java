@@ -58,6 +58,7 @@ public class IzvrsiZamenuGUI extends JFrame {
 	 * Create the frame.
 	 */
 	public IzvrsiZamenuGUI(MenjacnicaGUI mg) {
+		setResizable(false);
 		setIconImage(Toolkit.getDefaultToolkit().getImage(IzvrsiZamenuGUI.class.getResource("/imgs/Money.png")));
 		addWindowListener(new WindowAdapter() {
 			@Override

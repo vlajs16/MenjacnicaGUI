@@ -71,6 +71,7 @@ public class MenjacnicaGUI extends JFrame {
 	private JMenuItem mntmDodajKurs;
 	private JMenuItem mntmObrisiKurs;
 	private JMenuItem mntmIzvrsiZamenu;
+	private JScrollPane scrollPane_1;
 
 	/**
 	 * Launch the application.
@@ -221,7 +222,7 @@ public class MenjacnicaGUI extends JFrame {
 					TitledBorder.LEFT, TitledBorder.TOP, null, new Color(0, 0, 0)));
 			bottomPanel.setPreferredSize(new Dimension(10, 150));
 			bottomPanel.setLayout(new BorderLayout(0, 0));
-			bottomPanel.add(getTextArea(), BorderLayout.CENTER);
+			bottomPanel.add(getScrollPane_1(), BorderLayout.CENTER);
 		}
 		return bottomPanel;
 	}
@@ -245,8 +246,7 @@ public class MenjacnicaGUI extends JFrame {
 			btnObrisiKurs = new JButton("Obrisi kurs");
 			btnObrisiKurs.addActionListener(new ActionListener() {
 				public void actionPerformed(ActionEvent e) {
-					ObrisiKursGUI okg = new ObrisiKursGUI(frame);
-					okg.setVisible(true);
+					brisanjeKursa();
 				}
 			});
 			btnObrisiKurs.setFont(new Font("Tahoma", Font.PLAIN, 20));
@@ -260,8 +260,7 @@ public class MenjacnicaGUI extends JFrame {
 			btnIzvrsiZamenu = new JButton("Izvrsi zamenu");
 			btnIzvrsiZamenu.addActionListener(new ActionListener() {
 				public void actionPerformed(ActionEvent e) {
-					IzvrsiZamenuGUI izg = new IzvrsiZamenuGUI(frame);
-					izg.setVisible(true);
+					zamenaValuta();
 				}
 			});
 			btnIzvrsiZamenu.setFont(new Font("Tahoma", Font.PLAIN, 20));
@@ -304,6 +303,7 @@ public class MenjacnicaGUI extends JFrame {
 	private JTextArea getTextArea() {
 		if (textArea == null) {
 			textArea = new JTextArea();
+			textArea.setWrapStyleWord(true);
 			textArea.setLineWrap(true);
 			textArea.setFont(new Font("Tahoma", Font.PLAIN, 16));
 		}
@@ -355,6 +355,11 @@ public class MenjacnicaGUI extends JFrame {
 	private JMenuItem getMntmObrisiKurs() {
 		if (mntmObrisiKurs == null) {
 			mntmObrisiKurs = new JMenuItem("Obrisi kurs");
+			mntmObrisiKurs.addActionListener(new ActionListener() {
+				public void actionPerformed(ActionEvent e) {
+					brisanjeKursa();
+				}
+			});
 		}
 		return mntmObrisiKurs;
 	}
@@ -362,6 +367,11 @@ public class MenjacnicaGUI extends JFrame {
 	private JMenuItem getMntmIzvrsiZamenu() {
 		if (mntmIzvrsiZamenu == null) {
 			mntmIzvrsiZamenu = new JMenuItem("Izvrsi zamenu");
+			mntmIzvrsiZamenu.addActionListener(new ActionListener() {
+				public void actionPerformed(ActionEvent e) {
+					zamenaValuta();
+				}
+			});
 		}
 		return mntmIzvrsiZamenu;
 	}
@@ -400,5 +410,22 @@ public class MenjacnicaGUI extends JFrame {
 	private void dodajmoKursic() {
 		DodajKursGUI dkg = new DodajKursGUI(frame);
 		dkg.setVisible(true);
+	}
+	private JScrollPane getScrollPane_1() {
+		if (scrollPane_1 == null) {
+			scrollPane_1 = new JScrollPane();
+			scrollPane_1.setViewportView(getTextArea());
+		}
+		return scrollPane_1;
+	}
+
+	private void brisanjeKursa() {
+		ObrisiKursGUI okg = new ObrisiKursGUI(frame);
+		okg.setVisible(true);
+	}
+
+	private void zamenaValuta() {
+		IzvrsiZamenuGUI izg = new IzvrsiZamenuGUI(frame);
+		izg.setVisible(true);
 	}
 }
