@@ -1,20 +1,16 @@
 package menjacnica.gui;
 
 import java.awt.BorderLayout;
+import java.awt.EventQueue;
+import java.awt.Font;
 
 import javax.swing.JFrame;
-import javax.swing.JPanel;
-import javax.swing.border.EmptyBorder;
 import javax.swing.JLabel;
+import javax.swing.JPanel;
 import javax.swing.JTextField;
-import javax.swing.JButton;
-import java.awt.Font;
-import java.awt.event.ActionListener;
-import java.awt.event.ActionEvent;
-import java.awt.event.WindowAdapter;
-import java.awt.event.WindowEvent;
+import javax.swing.border.EmptyBorder;
 
-public class DodajKursGUI extends JFrame {
+public class ObrisiKursGUI extends JFrame {
 
 	/**
 	 * 
@@ -34,22 +30,13 @@ public class DodajKursGUI extends JFrame {
 	private JTextField txtSrednjiKurs;
 	private JLabel lblSkraceniNaziv;
 	private JTextField txtSkraceniNaziv;
-	private JButton btnDodaj;
-	private JButton btnOdustani;
-	private MenjacnicaGUI mg;
+
 
 	/**
 	 * Create the frame.
 	 */
-	public DodajKursGUI(MenjacnicaGUI mg) {
-		addWindowListener(new WindowAdapter() {
-			@Override
-			public void windowClosing(WindowEvent e) {
-				dispose();
-			}
-		});
-		setResizable(false);
-		setTitle("Dodaj kurs");
+	public ObrisiKursGUI() {
+		setTitle("Obrisi kurs");
 		setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
 		setBounds(100, 100, 800, 550);
 		contentPane = new JPanel();
@@ -57,10 +44,8 @@ public class DodajKursGUI extends JFrame {
 		contentPane.setLayout(new BorderLayout(0, 0));
 		setContentPane(contentPane);
 		contentPane.add(getPanel(), BorderLayout.CENTER);
-		
-		this.mg = mg;
 	}
-
+	
 	private JPanel getPanel() {
 		if (panel == null) {
 			panel = new JPanel();
@@ -77,11 +62,11 @@ public class DodajKursGUI extends JFrame {
 			panel.add(getTxtSrednjiKurs());
 			panel.add(getLblSkraceniNaziv());
 			panel.add(getTxtSkraceniNaziv());
-			panel.add(getBtnDodaj());
-			panel.add(getBtnOdustani());
 		}
 		return panel;
 	}
+
+	
 	private JLabel getLblSifra() {
 		if (lblSifra == null) {
 			lblSifra = new JLabel("Sifra");
@@ -183,36 +168,5 @@ public class DodajKursGUI extends JFrame {
 			txtSkraceniNaziv.setColumns(10);
 		}
 		return txtSkraceniNaziv;
-	}
-	private JButton getBtnDodaj() {
-		if (btnDodaj == null) {
-			btnDodaj = new JButton("Dodaj");
-			btnDodaj.addActionListener(new ActionListener() {
-				public void actionPerformed(ActionEvent e) {
-					String text = "Sifra: " + txtSifra.getText()+" Valuta: " + txtNaziv.getText() + " (" + txtSkraceniNaziv.getText()+ ") " +
-										" Prodajni kurs: " + txtProdajniKurs.getText() +
-										" Srednji kurs: " + txtSrednjiKurs.getText() +
-										" Kupovni kurs: " + txtKupovniKurs.getText();
-					mg.addNewText(text);
-					dispose();
-				}
-			});
-			btnDodaj.setFont(new Font("Tahoma", Font.PLAIN, 20));
-			btnDodaj.setBounds(37, 414, 270, 32);
-		}
-		return btnDodaj;
-	}
-	private JButton getBtnOdustani() {
-		if (btnOdustani == null) {
-			btnOdustani = new JButton("Odustani");
-			btnOdustani.addActionListener(new ActionListener() {
-				public void actionPerformed(ActionEvent e) {
-					dispose();
-				}
-			});
-			btnOdustani.setFont(new Font("Tahoma", Font.PLAIN, 20));
-			btnOdustani.setBounds(461, 414, 270, 32);
-		}
-		return btnOdustani;
 	}
 }

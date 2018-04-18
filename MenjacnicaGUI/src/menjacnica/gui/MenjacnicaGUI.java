@@ -229,6 +229,11 @@ public class MenjacnicaGUI extends JFrame {
 	private JButton getBtnDodajKurs() {
 		if (btnDodajKurs == null) {
 			btnDodajKurs = new JButton("Dodaj kurs");
+			btnDodajKurs.addActionListener(new ActionListener() {
+				public void actionPerformed(ActionEvent e) {
+					dodajmoKursic();
+				}
+			});
 			btnDodajKurs.setFont(new Font("Tahoma", Font.PLAIN, 20));
 			btnDodajKurs.setPreferredSize(new Dimension(200, 30));
 		}
@@ -326,6 +331,11 @@ public class MenjacnicaGUI extends JFrame {
 	private JMenuItem getMntmDodajKurs() {
 		if (mntmDodajKurs == null) {
 			mntmDodajKurs = new JMenuItem("Dodaj kurs");
+			mntmDodajKurs.addActionListener(new ActionListener() {
+				public void actionPerformed(ActionEvent e) {
+					dodajmoKursic();
+				}
+			});
 		}
 		return mntmDodajKurs;
 	}
@@ -369,5 +379,14 @@ public class MenjacnicaGUI extends JFrame {
 				JOptionPane.YES_NO_OPTION);
 		if (opcija == JOptionPane.YES_OPTION)
 			System.exit(0);
+	}
+	
+	public void addNewText(String text) {
+		textArea.setText(textArea.getText()+text+"\n");
+	}
+
+	private void dodajmoKursic() {
+		DodajKursGUI dkg = new DodajKursGUI(frame);
+		dkg.setVisible(true);
 	}
 }
