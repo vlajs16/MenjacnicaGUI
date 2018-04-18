@@ -1,7 +1,7 @@
 package menjacnica.gui;
 
 import java.awt.BorderLayout;
-import java.awt.EventQueue;
+
 import java.awt.Font;
 
 import javax.swing.JFrame;
@@ -15,8 +15,7 @@ import java.awt.event.ActionEvent;
 import java.awt.event.WindowAdapter;
 import java.awt.event.WindowEvent;
 import javax.swing.JCheckBox;
-import javax.swing.event.ChangeListener;
-import javax.swing.event.ChangeEvent;
+
 import java.awt.Toolkit;
 
 public class ObrisiKursGUI extends JFrame {
